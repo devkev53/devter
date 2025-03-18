@@ -5,8 +5,6 @@ import { useEffect, useState } from "react"
 import Devit from "components/Devit"
 import { useUser } from "hooks/useUser"
 import { fetchLatestDevits } from "supabase/devit"
-import { getUsers } from "supabase/users"
-import { getTimeGo } from "utils/timeGo"
 import Link from "next/link"
 import Home from "components/Icons/Home"
 import Search from "components/Icons/Search"
@@ -22,6 +20,7 @@ const HomePage = () => {
   useEffect(() => {
     if (user !== null || user !== undefined) {
       fetchLatestDevits().then((res) => {
+        console.log(res.data)
         setTimeline(res.data)
       })
     }
@@ -41,19 +40,35 @@ const HomePage = () => {
         <h2>Inicio</h2>
       </header>
       <section className={Styles.section}>
-        {timeline.map((devit) => {
-          return (
-            <Devit
-              avatar={devit.avatar}
-              name={devit.name}
-              key={devit.id}
-              created_at={devit.created_at}
-              content={devit.content}
-              username={devit.username}
-              images={devit.images}
-            />
-          )
-        })}
+        {timeline !== null ? (
+          timeline?.map((devit) => {
+            return (
+              <Devit
+                avatar={devit.avatar}
+                name={devit.name}
+                key={devit.id}
+                created_at={devit.created_at}
+                content={devit.content}
+                username={devit.username}
+                images={devit.images}
+              />
+            )
+          })
+        ) : (
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <p>Aun no existe devit&apos;s registrados..!</p>
+            <p>Se el primero..!</p>
+          </div>
+        )}
       </section>
       <nav className={Styles.nav}>
         <Link href="/">

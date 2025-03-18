@@ -2,16 +2,16 @@ import Styles from "./styles.module.css"
 import Button from "components/Button"
 import BackArrow from "components/Icons/BackArrow"
 import { useAddDevit } from "hooks/useAddDevit"
-import { useEffect } from "react"
+import Link from "next/link"
 
 const index = () => {
   const { btnStatus, uploadDevit } = useAddDevit()
 
   return (
     <header className={Styles.header}>
-      <button>
+      <Link href="/home">
         <BackArrow />
-      </button>
+      </Link>
       <div>
         <Button onClick={uploadDevit} disabled={btnStatus}>
           Devitiar

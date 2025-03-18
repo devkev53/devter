@@ -9,6 +9,7 @@ export const signInWithGitHub = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "github",
   })
+  console.log(data, error)
 }
 
 export const getStateUser = supabase.auth.onAuthStateChange(
@@ -33,6 +34,7 @@ export const getGitHubUser = supabase.auth.getUser().then(({ error, data }) => {
 
 export const signout = async () => {
   const { error } = supabase.auth.signOut()
+  console.log(error)
 }
 
 export const listUsers = async () => {

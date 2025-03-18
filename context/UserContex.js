@@ -13,15 +13,18 @@ export const UserContextProvider = ({ children }) => {
     const getUser =
       JSON.parse(
         window.localStorage.getItem("sb-smptvlonfdonqyadvhir-auth-token")
-      ).user || USER_STATES.NOT_LOGGED
-    const { user_metadata, id } = getUser
-    const { user_name, avatar_url, email } = user_metadata
-    setUser({
-      id,
-      avatar: avatar_url,
-      username: user_name,
-      email,
-    })
+      ) || USER_STATES.NOT_LOGGED
+
+    if (getUser !== USER_STATES.NOT_LOGGED) {
+      const { user_metadata, id } = getUser
+      const { user_name, avatar_url, email } = user_metadata
+      setUser({
+        id,
+        avatar: avatar_url,
+        username: user_name,
+        email,
+      })
+    }
   }, [])
 
   return (
